@@ -78,17 +78,17 @@ class HttpRedirectLoopDetector {
             $response = $request->send();
             
             if ($response->isRedirect()) {
-                $this->history[] = $this->currentUrl;
                 $this->currentUrl = $this->getResponseLocation($response);
+                $this->history[] = $this->currentUrl;
             } else {
                 return false;
             }
         }
         
-        $sourceUrl = new \webignition\NormalisedUrl\NormalisedUrl($this->url);
+        $sourceUrl = (string)new \webignition\NormalisedUrl\NormalisedUrl($this->url);
         foreach ($this->history as $url) {
             $comparatorUrl = new \webignition\NormalisedUrl\NormalisedUrl($url);
-            if ((string)$sourceUrl == (string)$comparatorUrl) {
+            if ($sourceUrl == (string)$comparatorUrl) {
                 return true;
             }
         }
@@ -102,7 +102,7 @@ class HttpRedirectLoopDetector {
      * @param \Guzzle\Http\Message\Response $response
      * @return string
      */
-    private function getResponseLocation(\Guzzle\Http\Message\Response $response) {
+    private function getResponseLocation(\Guzzle\Http\Message\Response $response) {        
         $absoluteUrlDeriver = new \webignition\AbsoluteUrlDeriver\AbsoluteUrlDeriver($response->getLocation(), $this->currentUrl);
         return (string)$absoluteUrlDeriver->getAbsoluteUrl();
     }
