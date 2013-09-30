@@ -1,0 +1,22 @@
+{
+    "name": "webignition/http-redirect-loop-detector",
+    "description": "Detect HTTP redirect loops",
+    "keywords": ["http", "redirect", "loop"],
+    "homepage": "https://github.com/webignition/http-redirect-loop-detector/",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jon Cram",
+            "email": "jon@webignition.net"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },    
+    "require": {
+        "php": ">=5.3.0",
+        "guzzle/guzzle":"3.7.2",
+        "webignition/absolute-url-deriver":"*"
+    }
+}
